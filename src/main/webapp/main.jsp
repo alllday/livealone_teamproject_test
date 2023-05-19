@@ -11,7 +11,7 @@
 <hr color="red">
 <form action="login" method="get">
 	id : <input name="id""><br>
-	<button type="submit">서버로 전송</button>
+	<button type="submit">로그인</button>
 </form>
 <%
 	if(session.getAttribute("id") == "none"){
