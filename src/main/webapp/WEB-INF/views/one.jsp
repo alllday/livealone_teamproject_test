@@ -12,22 +12,29 @@
 게시글번호 : ${bag.no} <br>
 게시글 작성자 : ${bag.writer} <br>
 
-<c:set var="writer" value="${bag.writer}"/>
+<%-- <c:set var="writer" value="${bag.writer}"/> --%>
 현재세션 : <c:out value="${id}"/> <br>
-게시글 작성자 : <c:out value="${writer}"/> <br>
+<%-- = 현재세션 : ${id} <br> --%>
 
 <c:choose>
- <c:when test = "${writer eq id}">
+ <%-- = <c:when test = "${writer eq id}"> --%>
+ <c:when test = "${bag.writer eq id}">
  	<form action="chatList" method="get">
+ 		<!-- type은 디폴트가 submit( -> form제출) -->
 		<button type="submit">채팅 목록</button>
 	</form>
  </c:when>
  
- <c:otherwise>
- 	<form action="charRoom" method="get">
-		<button type="submit">채팅 요청</button>
-	</form>
- </c:otherwise>
+  <c:otherwise>
+  	<form action="chatRoom">
+ 		 <input type="hidden" name="bbsNo" value="${bag.no}"> 
+ 		 <input type="hidden" name="chatRequestor" value="${id}"> 
+ 		 <input type="hidden" name="chatReceiver" value="${bag.writer}"> 
+ 		 <button>채팅요청</button>
+   </form>
+   <!-- 밑에 저거 왜 안돼? -->
+	<%-- <button onclick="location.href='${pageContext.request.contextPath}/chatRoom?bbsNo=${bag.no}?chatRequestor=${id}?chatReceiver=${bag.writer}'">채팅 요청</button> --%>
+ </c:otherwise> 
 </c:choose>
 </body>
 </html>

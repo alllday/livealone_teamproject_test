@@ -4,13 +4,13 @@
 	
 	<select id="all" resultType="chatRoomShareVO">
 		select *
-		from  chatroomshare<!-- db에 소문자로 저장되어 있는데 도대체 왜...? -->
+		from  chatroomshare <!-- db에 소문자로 저장되어 있는데 도대체 왜...? -->
 	</select>
 	
-	<insert id="insert" parameterType="chatRoomShareVO">
-		insert *
-		into CAHTROOMSHARE
-		values (#{}, #{}, #{})
+	<!-- useGeneratedKeys="true" keyProperty="roomId" : autoincrement 속성 -->
+	<insert id="insert" parameterType="chatRoomShareVO" useGeneratedKeys="true" keyProperty="roomId">
+		insert into CHATROOMSHARE (bbsNo, chatRequestor, chatReceiver)
+		values (#{bbsNo}, #{chatRequestor}, #{chatReceiver})
 	</insert>
 </mapper>
 

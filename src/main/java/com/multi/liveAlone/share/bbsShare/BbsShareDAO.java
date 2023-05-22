@@ -16,7 +16,7 @@ public class BbsShareDAO {
 	
 	public List<BbsShareVO> list() {
 		List<BbsShareVO> list = my.selectList("bbs_test.all");
-		System.out.println(list.size());
+		System.out.println("게시물 개수 : " + list.size());
 		return list;
 	}
 	

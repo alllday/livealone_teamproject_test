@@ -15,7 +15,7 @@ public class MemberDAO { // CRUD
 	
 	public int login(MemberVO bag) {
 		int result = my.selectOne("member_test.login", bag.getid());
-		System.out.println("결과는?! : " + result);
+		System.out.println("로그인 결과는?! : " + result);
 		return result;
 	}
 }

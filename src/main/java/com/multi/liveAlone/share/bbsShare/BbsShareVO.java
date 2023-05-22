@@ -1,6 +1,7 @@
 package com.multi.liveAlone.share.bbsShare;
 
 public class BbsShareVO {
+	
 	private int no;
 	private String writer;
 	public int getNo() {
