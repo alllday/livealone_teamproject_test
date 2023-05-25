@@ -9,6 +9,7 @@
 </head>
 <body>
 게시판 리스트!
+현재 세션 : <%= session.getAttribute("id")%>
 <c:forEach items="${list}" var="bag">
 <hr color="red">
 <!-- form으로 컨트롤러에 데이터 전송할때 파라미터를 input에 담는 것처럼 a태그로 컨트롤러에 데이터를 전송할 때,

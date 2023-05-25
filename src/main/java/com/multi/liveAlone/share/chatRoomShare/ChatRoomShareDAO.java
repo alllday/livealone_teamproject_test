@@ -22,4 +22,9 @@ public class ChatRoomShareDAO {
 		System.out.println("채팅방 개수 : " + list.size());
 		return list;
 	}
+	
+	public ChatRoomShareVO one(ChatRoomShareVO bag) {
+		ChatRoomShareVO bag2 = my.selectOne("chatroomshare.one", bag);
+		return bag2;
+	}
 }
