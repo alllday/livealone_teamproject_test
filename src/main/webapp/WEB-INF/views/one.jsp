@@ -19,8 +19,9 @@
 <c:choose>
  <%-- = <c:when test = "${writer eq id}"> --%>
  <c:when test = "${bag.writer eq id}">
- 	<form action="chatList" method="get">
+ 	<form action="bbsChatList" method="get">
  		<!-- type은 디폴트가 submit( -> form제출) -->
+ 		<input type="hidden" name="bbsNo" value="${bag.no}">
 		<button type="submit">채팅 목록</button>
 	</form>
  </c:when>

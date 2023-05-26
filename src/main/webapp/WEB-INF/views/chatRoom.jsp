@@ -13,6 +13,8 @@
 <script type="text/javascript">
 	var stompClient = null;
 	var roomId = ${roomInfo.roomId};
+	var requestor = false;
+	var receiver = false;
 
 	//1. 소켓객체 생성
 	var socket = new SockJS('${pageContext.request.contextPath}/chat/'+roomId);
@@ -31,7 +33,6 @@
 	//서버로 메세지 보냄 
 	function sendMessage() {
 		//url을 /app/cht을 호출하고,data를 json형태의 sring으로 만들어서 보내라. 
-		
 		// /chat2처럼 하위를 무조건 써줘야 함 이유는 모름.. + /app은 생략가능 마찬가지로 이유는 모름
 		stompClient.send("/app/chat2/" + roomId, {}, JSON.stringify({ 
 			'roomId' : ${roomInfo.roomId},
@@ -45,14 +46,34 @@
 		//<p id="response">
 		//	<p> 홍길동: 잘지내지?(13:00)</p>
 		//</p>
-		var response = document.getElementById('response');
+		var response2 = document.getElementById('response2');
 		var p = document.createElement('p'); // p태그를 만들어라.
 		//p.style.wordWrap = 'break-word'; // css니까 일단 무시
-		p.appendChild(document.createTextNode(messageOutput.sender + ": "
+		p.appendChild(document.createTextNode(messageOutput.sender + " : "
 				+ messageOutput.content + " (" + messageOutput.time + ")"));
-		response.appendChild(p);
+		response2.appendChild(p);
+		
+		// 메시지보내면 input 초기화
+		// = document.getElementById('message').value = null;
+		$('#message').val(null);
 	}
 
+	// form이 없을 때 버튼을 마우스로 클릭하지 않고 엔터로 입력처리
+	function enter(){
+		if(window.event.keyCode == 13){
+			$('#sendMessage').click();
+			// = document.getElementById('sendMessage').click();
+		}
+	}
+	
+	function tradeCheck(){
+		if(requestor == false && ${roomInfo.chatRequestor} == ${id}){
+			requestor = true;
+		}
+		if(receiver == false && ${roomInfo.chatReceiver} == ${id}){
+			receiver = true;
+		}
+	}
 	//서버로 연결 끊음. 
 	/* function disconnect() {
 		if (stompClient != null) {
@@ -65,10 +86,25 @@
 </head>
 <body>
 	<div id="conversationDiv">
-		<input type="text" id="message" placeholder="Write a message..." />
+		<input type="text" id="message" onkeyup="enter();" placeholder="Write a message..." />
 		<button id="sendMessage" onclick="sendMessage();">Send</button>
 
-		<p id="response"></p>
+		<!-- 메시지리스트 받아오기 -->
+		<p id="response">
+			<c:forEach items="${list}" var="list">
+				<p> ${list.sender} : ${list.content} (${list.time}) </p>
+			</c:forEach>
+		</p>
+		<!-- <p id="response"> 여기다 해버리면 읽어온 리스트위에서 진행되기 때문에 그냥 이렇게 별도로 하나 만들어줌 -->
+		<p id="response2">
+			
+		</p>
+		<button onclick="tradeCheck();">거래완료</button>
+		<c:if test="">
+		</c:if>
+		<p id="check">
+		
+		</p>
 	</div>
 
 </body>

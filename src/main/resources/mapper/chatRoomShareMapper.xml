@@ -7,6 +7,12 @@
 		from  chatroomshare <!-- db에 소문자로 저장되어 있는데 도대체 왜...? -->
 	</select>
 	
+	<select id="room" parameterType="int" resultType="chatRoomShareVO">
+		select *
+		from  chatroomshare 
+		where bbsNo = #{bbsNo}
+	</select>
+	
 	<!-- useGeneratedKeys="true" keyProperty="roomId" : auto_increment 속성 -->
 	<insert id="insert" parameterType="chatRoomShareVO" useGeneratedKeys="true" keyProperty="roomId">
 		insert into CHATROOMSHARE (bbsNo, chatRequestor, chatReceiver)
@@ -19,6 +25,17 @@
 		where bbsNo = #{bbsNo} and chatRequestor = #{chatRequestor}
 	</select>
 	
+	<select id="one_roomId" parameterType="chatRoomShareVO" resultType="chatRoomShareVO">
+		select *
+		from CHATROOMSHARE
+		where roomId = #{roomId}
+	</select>
+	
+	<select id="message" parameterType="int" resultType="messageShareVO">
+		select *
+		from MESSAGESHARE
+		where roomId = #{roomId}
+	</select>
 </mapper>
 
 
